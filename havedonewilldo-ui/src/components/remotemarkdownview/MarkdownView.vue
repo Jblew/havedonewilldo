@@ -1,15 +1,34 @@
 <template>
   <div>
-    <h1>Jędrzej Lewandowski <small>[HaveDone.willdo]</small></h1>
-    <h2>Project status public + private</h2>
+    <span v-html="htmlContent"></span>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator'
+import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
+import MarkdownIt from 'markdown-it'
+
+const md = new MarkdownIt()
 
 @Component
 export default class MarkdownView extends Vue {
-  @Prop() private msg!: string
+  @Prop() private markdown!: string
+
+  htmlContent: string = ''
+
+  beforeMount() {
+    this.generateHtml()
+  }
+
+  @Watch('markdown')
+  onMarkdownInputChange(newMarkdown: string) {
+    this.generateHtml()
+  }
+
+  generateHtml() {
+    this.htmlContent = md.render(this.markdown)
+    console.log('Markdown: ', this.markdown)
+    console.log('htmlContent', this.htmlContent)
+  }
 }
 </script>

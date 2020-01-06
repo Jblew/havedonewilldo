@@ -1,15 +1,18 @@
 <template>
-  <div>
-    <h1>Jędrzej Lewandowski <small>[HaveDone.willdo]</small></h1>
-    <h2>Project status public + private</h2>
-  </div>
+  <b-card :header="title">
+    <markdown-view :markdown="markdown" />
+  </b-card>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
+import MarkdownView from './MarkdownView.vue'
 
-@Component
+@Component({ components: { MarkdownView } })
 export default class RemoteMarkdownView extends Vue {
-  @Prop() private msg!: string
+  @Prop({ required: true, type: String })
+  private title!: string
+
+  markdown = '*Loading, please wait...*'
 }
 </script>
