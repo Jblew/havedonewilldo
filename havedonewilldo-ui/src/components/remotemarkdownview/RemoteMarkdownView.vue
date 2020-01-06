@@ -1,5 +1,5 @@
 <template>
-  <b-card :header="title">
+  <b-card :header="title" class="rmv-card">
     <markdown-view :markdown="content" />
   </b-card>
 </template>
@@ -20,7 +20,6 @@ export default class RemoteMarkdownView extends Vue {
   content = '*Loading, please wait...*'
 
   beforeMount() {
-    console.log('before mount')
     this.loadContent()
   }
 
@@ -36,7 +35,6 @@ export default class RemoteMarkdownView extends Vue {
   }
 
   async doFetch() {
-    console.log('Fetching ' + this.url)
     const resp = await Axios.get(this.url)
     return resp.data
   }
@@ -46,3 +44,9 @@ function formatErrorMessageMd(msg: string) {
   return `<span style='color:red'>${msg}</span>`
 }
 </script>
+<style>
+.rmv-card {
+  max-height: 20rem;
+  overflow-y: scrol;
+}
+</style>

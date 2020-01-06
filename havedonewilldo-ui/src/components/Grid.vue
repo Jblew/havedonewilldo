@@ -1,18 +1,22 @@
 <template>
   <div>
-    <p>Grid</p>
-    <remote-markdown-view
-      title="AHPA public"
-      url="https://raw.githubusercontent.com/Jblew/havedonewilldo/master/README.md"
-    />
-    <hr />
+    <span v-for="(pair, index) in views" :key="index">
+      <pair-view :pair="pair" :showPrivate="showPrivate" />
+    </span>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
-import { RemoteMarkdownView } from './remotemarkdownview'
+import PairView from './PairView.vue'
+import { ViewPair } from '../model'
 
-@Component({ components: { RemoteMarkdownView } })
-export default class Grid extends Vue {}
+@Component({ components: { PairView } })
+export default class Grid extends Vue {
+  @Prop({ required: true, type: Array })
+  views!: ViewPair[]
+
+  @Prop({ required: true, type: Boolean })
+  showPrivate!: boolean
+}
 </script>
