@@ -1,0 +1,17 @@
+{
+  "hosting": {
+    "public": "havedonewilldo-ui/dist",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [{
+      "source": "**",
+      "destination": "/index.html"
+    }],
+    "predeploy": [
+      "npm --prefix \"havedonewilldo-ui\" run build"
+    ]
+  }
+}

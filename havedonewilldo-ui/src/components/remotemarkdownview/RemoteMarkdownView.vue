@@ -24,10 +24,11 @@ export default class RemoteMarkdownView extends Vue {
   }
 
   loadContent() {
-    ;(async () => {
+    ; (async () => {
       try {
         this.content = await this.doFetch()
       } catch (err) {
+        /* eslint-disable no-console */
         console.warn('Error while loading content for ' + this.title, err)
         this.content = formatErrorMessageMd(err.message)
       }
