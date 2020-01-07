@@ -1,29 +1,42 @@
 <template>
   <div id="app">
-    <Header :showPrivate="showPrivate" @toggleShowPrivate="toggleShowPrivate" />
-    <b-container fluid>
-      <Grid :showPrivate="showPrivate" :views="views" />
-    </b-container>
+    <main v-if="user" />
+    <login v-else />
+
+    <p v-if="user">Logged in</p>
+    <p v-else>Not logged in</p>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import { Grid, Header } from './components'
-import { views } from './views'
+import Main from './Main.vue'
+import Login from './Login.vue'
+import firebase from 'firebase/app'
+
 @Component({
   components: {
-    Header,
-    Grid,
+    Main,
+    Login,
   },
 })
 export default class App extends Vue {
-  showPrivate: boolean = false
+  user: firebase.User | '' = ''
 
-  views = views
+  beforeMount() {
+    this.reactToAuthStateChange()
+  }
 
-  toggleShowPrivate() {
-    this.showPrivate = !this.showPrivate
+  reactToAuthStateChange() {
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        console.log('LOGGED IN')
+        this.user = user
+      } else {
+        console.log('NOT LOGGED IN')
+        this.user = ''
+      }
+    })
   }
 }
 </script>
