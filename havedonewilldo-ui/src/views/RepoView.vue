@@ -70,6 +70,7 @@ export default class RepoViewer extends Vue {
         this.config = await fetchConfig(this.repo[0], this.repo[1])
       } catch (error) {
         this.error = error.message
+        /* eslint-disable no-console */
         console.error(this.error)
       }
     })()

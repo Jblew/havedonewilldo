@@ -27,10 +27,8 @@ export default class App extends Vue {
   reactToAuthStateChange() {
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
-        console.log('LOGGED IN')
         this.user = user
       } else {
-        console.log('NOT LOGGED IN')
         this.user = ''
       }
     })

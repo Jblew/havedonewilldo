@@ -31,6 +31,7 @@ export default class MarkdownDisplay extends Vue {
     try {
       this.htmlContent = md.render(this.markdown)
     } catch (error) {
+      /* eslint-disable no-console */
       console.error(error)
       this.htmlContent = `Error:  ${error.message}`
     }
