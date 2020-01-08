@@ -8,10 +8,12 @@
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
 import MarkdownIt from 'markdown-it'
 
-const md = new MarkdownIt()
+const md = new MarkdownIt(({
+  html: true
+}))
 
 @Component
-export default class MarkdownView extends Vue {
+export default class MarkdownDisplay extends Vue {
   @Prop() private markdown!: string
 
   htmlContent: string = ''
@@ -26,9 +28,12 @@ export default class MarkdownView extends Vue {
   }
 
   generateHtml() {
-    this.htmlContent = md.render(this.markdown)
-    console.log('Markdown: ', this.markdown)
-    console.log('htmlContent', this.htmlContent)
+    try {
+      this.htmlContent = md.render(this.markdown)
+    } catch (error) {
+      console.error(error)
+      this.htmlContent = `Error:  ${error.message}`
+    }
   }
 }
 </script>

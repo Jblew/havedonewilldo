@@ -1,7 +1,7 @@
 <template>
   <div>
-    <span v-for="(pair, index) in views" :key="index">
-      <pair-view :pair="pair" :showPrivate="showPrivate" />
+    <span v-for="(group, index) in groups" :key="index">
+      <pair-view :group="group" :showPrivate="showPrivate" />
     </span>
   </div>
 </template>
@@ -14,7 +14,7 @@ import { ViewGroup } from '../model'
 @Component({ components: { PairView } })
 export default class Grid extends Vue {
   @Prop({ required: true, type: Array })
-  views!: ViewGroup[]
+  groups!: ViewGroup[]
 
   @Prop({ required: true, type: Boolean })
   showPrivate!: boolean

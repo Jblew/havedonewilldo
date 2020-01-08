@@ -1,12 +1,8 @@
 <template>
-  <div class="pair-view mb-5">
+  <div class="mb-5" v-if="showPublic || doIShowPrivate">
     <b-card-group deck>
-      <remote-markdown-view :title="pair.public.title" :url="pair.public.url" />
-      <remote-markdown-view
-        v-if="showPrivate"
-        :title="pair.private.title"
-        :url="pair.private.url"
-      />
+      <view-loader v-if="showPublic" :view="group.public" />
+      <view-loader v-if="doIShowPrivate" :view="group.private" />
     </b-card-group>
     <hr class="mt-5 d-sm-none" />
   </div>
@@ -14,19 +10,25 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
-import { RemoteMarkdownView } from './remotemarkdownview'
 import { ViewGroup } from '../model'
+import ViewLoader from './ViewLoader.vue'
 
-@Component({ components: { RemoteMarkdownView } })
-export default class Grid extends Vue {
+@Component({ components: { ViewLoader } })
+export default class PairView extends Vue {
   @Prop({ required: true, type: Object })
-  pair!: ViewGroup
+  group!: ViewGroup
 
   @Prop({ required: true, type: Boolean })
   showPrivate!: boolean
+
+  get showPublic(): boolean {
+    return !!this.group.public
+  }
+
+  get doIShowPrivate(): boolean {
+    return !!this.group.private && this.showPrivate
+  }
 }
 </script>
 <style>
-.pair-view {
-}
 </style>

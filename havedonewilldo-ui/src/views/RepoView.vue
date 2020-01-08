@@ -11,9 +11,7 @@
     <b-alert v-if="!config" variant="info" show
       >Loading {{ repoDisplayname }} for {{ userDisplayname }}...</b-alert
     >
-    <pre v-else>
-      {{ JSON.stringify(config, undefined, 2) }}
-    </pre>
+    <Grid v-if="config" :groups="config.groups" :showPrivate="showPrivate" />
   </div>
 </template>
 
@@ -67,7 +65,7 @@ export default class RepoViewer extends Vue {
   }
 
   loadConfigFromRepo() {
-    ;(async () => {
+    ; (async () => {
       try {
         this.config = await fetchConfig(this.repo[0], this.repo[1])
       } catch (error) {
