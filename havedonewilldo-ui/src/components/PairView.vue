@@ -15,12 +15,12 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import { RemoteMarkdownView } from './remotemarkdownview'
-import { ViewPair } from '../model'
+import { ViewGroup } from '../model'
 
 @Component({ components: { RemoteMarkdownView } })
 export default class Grid extends Vue {
   @Prop({ required: true, type: Object })
-  pair!: ViewPair
+  pair!: ViewGroup
 
   @Prop({ required: true, type: Boolean })
   showPrivate!: boolean

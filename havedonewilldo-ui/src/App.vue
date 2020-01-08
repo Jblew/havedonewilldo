@@ -1,23 +1,20 @@
 <template>
   <div id="app">
-    <main v-if="user" />
-    <login v-else />
-
-    <p v-if="user">Logged in</p>
-    <p v-else>Not logged in</p>
+    <main-view v-if="user" :user="user" />
+    <login-view v-else />
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import Main from './Main.vue'
-import Login from './Login.vue'
+import MainView from './views/MainView.vue'
+import LoginView from './views/LoginView.vue'
 import firebase from 'firebase/app'
 
 @Component({
   components: {
-    Main,
-    Login,
+    MainView,
+    LoginView,
   },
 })
 export default class App extends Vue {
@@ -42,6 +39,11 @@ export default class App extends Vue {
 </script>
 
 <style>
+body {
+  padding-left: 1.5em;
+  padding-right: 1.5em;
+}
+
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

@@ -9,7 +9,7 @@ import * as firebaseui from 'firebaseui'
 import 'firebaseui/dist/firebaseui.css'
 
 @Component
-export default class Login extends Vue {
+export default class LoginView extends Vue {
   beforeMount() {
     var uiConfig = {
       signInSuccessUrl: window.location.href,

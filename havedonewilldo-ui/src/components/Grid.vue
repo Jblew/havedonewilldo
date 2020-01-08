@@ -9,12 +9,12 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import PairView from './PairView.vue'
-import { ViewPair } from '../model'
+import { ViewGroup } from '../model'
 
 @Component({ components: { PairView } })
 export default class Grid extends Vue {
   @Prop({ required: true, type: Array })
-  views!: ViewPair[]
+  views!: ViewGroup[]
 
   @Prop({ required: true, type: Boolean })
   showPrivate!: boolean
